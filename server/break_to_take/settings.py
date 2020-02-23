@@ -100,7 +100,7 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '715275731904-324kl2l8v8ov3c51vl7tujdq5dslmu0k.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'U-V4ex56HNxpeZu-Zh43_4ac'
 LOGIN_URL = '/auth/login/google-oauth2/'
-LOGIN_REDIRECT_URL = '/login'
+LOGIN_REDIRECT_URL = '/core/user/info'
 LOGOUT_REDIRECT_URL = '/'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
