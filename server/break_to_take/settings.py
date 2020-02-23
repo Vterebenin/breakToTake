@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'break_to_take',
     'rest_framework',
     'social_django',
+    'corsheaders',
     'oauth2_provider'
 ]
 
@@ -53,9 +54,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
+
 ROOT_URLCONF = 'break_to_take.urls'
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
+CORS_ORIGIN_REGEX_WHITELIST = [
+    'http://localhost:3000',
+]
+SESSION_COOKIE_SAMESITE = None
 
 TEMPLATES = [
     {
