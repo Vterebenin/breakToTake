@@ -1,2 +1,5 @@
 server/venv/
+server/.env
 .idea/
+__pycache__/
+*.py[cod]
