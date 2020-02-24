@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'break_to_take',
+    'break_to_take.core',
     'rest_framework',
     'social_django',
     'corsheaders',
@@ -104,7 +105,12 @@ DATABASES = {
     }
 }
 
+# OAUTH2_PROVIDER = {
+#     'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'},
+#     'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
+# }
 
+TIME_ZONE = 'UTC'
 # google auth settings
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
@@ -112,10 +118,11 @@ AUTHENTICATION_BACKENDS = (
 )
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '715275731904-324kl2l8v8ov3c51vl7tujdq5dslmu0k.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'U-V4ex56HNxpeZu-Zh43_4ac'
-LOGIN_URL = '/auth/login/google-oauth2/'
+LOGIN_URL = '/login/google-oauth2/'
 LOGIN_REDIRECT_URL = '/core/user/info'
 LOGOUT_REDIRECT_URL = '/'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+AUTH_USER_MODEL = 'core.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

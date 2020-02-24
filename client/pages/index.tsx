@@ -30,7 +30,7 @@ const login = async (props) => {
 const Page: NextPage<Props> = ({ userAgent }) => {
   return (
     <Fragment>
-      <main>Your user agent: {`plugins/axios`} </main>
+      <main>Your user agent: {userAgent} </main>
       <Button as="a" href={`${base_url}/login/google-oauth2/`} primary>login</Button>
       <Button as="a" href={`${base_url}/logout`} primary>logout</Button>
     </Fragment>

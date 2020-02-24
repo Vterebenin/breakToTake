@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from server.break_to_take.core.views import UserView
+from break_to_take.core.views import UserView
 from rest_framework.routers import SimpleRouter
 
 router = SimpleRouter()

@@ -4,6 +4,7 @@ from string import ascii_lowercase
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.translation import gettext_lazy as _
+from break_to_take.core.managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -17,14 +18,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'  # Имя, которое импользуем в качестве идентификатора
     REQUIRED_FIELDS = []  # Список полей при создании createsuperuser
 
+    objects = UserManager()
+
     class Meta:
         db_table = 'users'
 
-    @property
-    def get_full_name(self):
-        return "%s %s" % (self.last_name, self.first_name)
-
     def get_token(self):
         token = ''.join(choice(ascii_lowercase) for _ in range(40))
-        self.resetpassword_set.create(token=token)
         return token
