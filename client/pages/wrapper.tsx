@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux';
 import axios from 'axios'
 
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 const Page = props => {
   const foo = useSelector((state) => state.foo);
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get('api/user/token')
+      const { data } = await axios.get('core/user/token/')
       console.log(data)
     })()
   })

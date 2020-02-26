@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { Fragment } from 'react'
 // @ts-ignore
-import axios from '/plugins/axios'
+import axios from 'axios'
 // @ts-ignore
 import { base_url } from '/plugins/settings'
 import styled from 'styled-components'

@@ -6,6 +6,30 @@ import withRedux from "next-redux-wrapper";
 
 import { makeStore } from 'store'
 
+import axios from 'axios'
+
+axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+axios.interceptors.request.use(request => {
+    console.log(request);
+    // Edit request config
+    return request;
+}, error => {
+    console.log(error);
+    return Promise.reject(error);
+});
+
+axios.interceptors.response.use(response => {
+    console.log(response);
+    // Edit response config
+    return response;
+}, error => {
+    console.log(error);
+    return Promise.reject(error);
+});
+
 /**
  * @param {object} initialState The store's initial state (on the client side, the state of the server-side store is passed here)
  * @param {boolean} options.isServer Indicates whether makeStore is executed on the server or the client side
