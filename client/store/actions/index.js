@@ -1,3 +1,6 @@
 export default {
-  GET_USER: 'GET_USER'
+  SAVE_TOKEN: 'SAVE_TOKEN',
+  GET_USER: 'GET_USER',
+  GET_USER_FAIL: 'GET_USER_FAIL',
+  LOGOUT: 'LOGOUT'
 }

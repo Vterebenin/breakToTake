@@ -50,4 +50,4 @@ class UserView(ViewSet):
             AccessToken.objects.get(user=request.user).delete()
         except AccessToken.DoesNotExist:
             pass
-        return redirect('/')
+        return Response({ 'status': 200 })

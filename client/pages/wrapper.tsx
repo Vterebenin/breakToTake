@@ -1,12 +1,15 @@
 import { useSelector } from 'react-redux';
+import axios from 'axios'
 
-import { RootState } from '@/store';
 import {useEffect} from "react";
 
 const Page = props => {
-  const foo = useSelector((state: RootState) => state.foo);
+  const foo = useSelector((state) => state.foo);
   useEffect(() => {
-    console.log(process.env.CLIENT_ID)
+    (async () => {
+      const { data } = await axios.get('api/user/token')
+      console.log(data)
+    })()
   })
 
   return (
@@ -17,7 +20,7 @@ const Page = props => {
   );
 };
 
-Page.getInitialProps = ({ store, isServer }) => {
+Page.getInitialProps = async ({ store, isServer }) => {
   if (isServer) {
     // Do some staff
   }
