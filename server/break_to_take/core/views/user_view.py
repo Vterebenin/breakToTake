@@ -21,6 +21,14 @@ class UserView(ViewSet):
     @staticmethod
     @permission_classes([AllowAny])
     @action(methods=['get'], detail=False)
+    def token(request: Request) -> Response:
+        user = User.objects.get(email=request.user.email)
+        token = AccessToken.objects.filter(user=user)
+        return Response(AccessTokenSerializer(token).data)
+
+    @staticmethod
+    @permission_classes([AllowAny])
+    @action(methods=['get'], detail=False)
     def info(request: Request) -> Response:
         user = User.objects.get(email=request.user.email)
         token = user.get_token()
@@ -34,7 +42,6 @@ class UserView(ViewSet):
             expires=expires
         )
         return redirect('/')
-        # return Response(AccessTokenSerializer(token).data)
 
     @staticmethod
     @action(methods=['get'], detail=False)

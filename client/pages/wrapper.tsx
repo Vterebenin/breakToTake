@@ -1,13 +1,17 @@
 import { useSelector } from 'react-redux';
 
 import { RootState } from '@/store';
+import {useEffect} from "react";
 
 const Page = props => {
   const foo = useSelector((state: RootState) => state.foo);
+  useEffect(() => {
+    console.log(process.env.CLIENT_ID)
+  })
 
   return (
     <div>
-      <div>Prop from Redux {foo}</div>
+      <div>Prop from Redux {}</div>
       <div>Prop from getInitialProps {props.custom}</div>
     </div>
   );
