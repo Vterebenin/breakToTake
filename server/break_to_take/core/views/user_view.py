@@ -1,20 +1,21 @@
 import datetime
-from django.contrib.auth import authenticate
+from urllib.parse import urlencode
+
+import jwt
+import requests
+from django.contrib.messages.storage.session import SessionStorage
+from django.contrib.sessions.backends.db import SessionStore
 from django.shortcuts import redirect
 from django.utils.timezone import make_aware
 from oauth2_provider.models import AccessToken
 from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.decorators import action, permission_classes
-from rest_framework.viewsets import ViewSet
-from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.hashers import make_password
 from rest_framework.utils import json
-from django.utils import timezone
-from rest_framework.response import Response
-import requests
-from break_to_take.core.models import User
+from rest_framework.viewsets import ViewSet
 from break_to_take.core.serializers import AccessTokenSerializer
+from break_to_take.core.models import User
+from rest_framework.response import Response
 
 
 class UserView(ViewSet):
@@ -41,13 +42,12 @@ class UserView(ViewSet):
             user=user,
             expires=expires
         )
-        return redirect('/')
+        session = SessionStore()
+        session['user_email'] = user.email
+        session['user_token'] = token
+        print(session['user_email'])
+        base_url = 'http://localhost:3000/'
+        query_string = urlencode({'token': token})  # 2 token=jwt-token
+        url = '{}?{}'.format(base_url, query_string)  # 3 /<redirect-route>/?token=jwt-token
+        return redirect(url)
 
-    @staticmethod
-    @action(methods=['get'], detail=False)
-    def logout(request: Request) -> Response:
-        try:
-            AccessToken.objects.get(user=request.user).delete()
-        except AccessToken.DoesNotExist:
-            pass
-        return Response({ 'status': 200 })

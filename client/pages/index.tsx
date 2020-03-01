@@ -1,7 +1,9 @@
 import { NextPage } from 'next'
-import { Fragment } from 'react'
+import {Fragment, useEffect} from 'react'
 // @ts-ignore
 import axios from 'axios'
+import Cookie from 'js-cookie'
+import { withRouter } from 'next/router'
 // @ts-ignore
 import { base_url } from '/plugins/settings'
 import styled from 'styled-components'
@@ -22,15 +24,18 @@ const Button = styled.button`
   border-radius: 3px;
 `
 
-const login = async (props) => {
-    const { data } = await axios.get('/login/google-oauth2/')
-    console.log(data)
-}
+const Page: NextPage<Props> = (props) => {
+  useEffect(() => {
+    (async () => {
+      if (props) {
+        console.log(props['router']['query']['token'])
+      }
+    })()
+  })
 
-const Page: NextPage<Props> = ({ userAgent }) => {
   return (
     <Fragment>
-      <main>Your user agent: {userAgent} </main>
+      <main>Your user agent: {props.userAgent} </main>
       <Button as="a" href={`${base_url}/login/google-oauth2/`} primary>login</Button>
       <Button as="a" href={`${base_url}/logout`} primary>logout</Button>
     </Fragment>
@@ -43,4 +48,4 @@ Page.getInitialProps = async ({ req }) => {
   return { userAgent }
 }
 
-export default Page
+export default withRouter(Page)
