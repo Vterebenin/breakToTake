@@ -3,6 +3,7 @@ import {Provider} from "react-redux";
 import App from "next/app";
 import withRedux from "next-redux-wrapper";
 import { makeStore } from 'store'
+import 'antd/dist/antd.css'
 
 class MyApp extends App {
   static async getInitialProps({Component, ctx}) {

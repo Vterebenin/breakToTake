@@ -1,32 +1,18 @@
-import { Fragment, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useCookieToken } from 'hooks'
 import { connect } from 'react-redux'
 import { withRouter } from 'next/router'
 import { useRouter } from 'next/router'
-import { base_url } from 'plugins/settings'
-import styled from 'styled-components'
 import {
   saveToken,
   getUser,
   logout
 } from 'store/actions/authActions'
+import { Layout, Breadcrumb } from 'antd';
+import Sidebar from 'components/ui/sidebar'
 
+const { Header, Content, Footer } = Layout;
 
-const Button = styled.button`
-  /* Adapt the colors based on primary prop */
-  background: ${props => props.primary ? "palevioletred" : "white"};
-  color: ${props => props.primary ? "white" : "palevioletred"};
-  display: inline-block;
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid palevioletred;
-  text-decoration: none;
-  border-radius: 3px;
-  &:hover {
-    cursor: pointer;
-  }
-`
 const saveAndGetUser = (props) => {
   if (props['router']['query']['token'] && !props.user) {
     const { token: accessToken, expiresIn } = props.router.query
@@ -38,6 +24,8 @@ const saveAndGetUser = (props) => {
 const Page = (props) => {
   const router = useRouter()
   useCookieToken(props)
+  const [collapsed, setCollapsed] = useState(false);
+
   useEffect(() => {
     saveAndGetUser(props)
   }, [props.accessToken, props.user])
@@ -48,11 +36,22 @@ const Page = (props) => {
   }
 
   return (
-    <Fragment>
-      <main>Your user agent: {props.user && props.user.email} </main>
-      <Button as="a" href={`${base_url}/login/google-oauth2/`} primary>login</Button>
-      <Button onClick={loggingOut} primary>logout</Button>
-    </Fragment>
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sidebar />
+      <Layout className="site-layout">
+        <Header className="site-layout-background" style={{ color: 'white' }} >Break to take</Header>
+        <Content style={{ margin: '0 16px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>User</Breadcrumb.Item>
+            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+          </Breadcrumb>
+          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+            Bill is a cat.
+          </div>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+      </Layout>
+    </Layout>
   )
 }
 
