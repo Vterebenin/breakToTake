@@ -1,10 +1,13 @@
-import {Fragment, useEffect} from 'react'
+import { Fragment, useEffect } from 'react'
+// @ts-ignore
+import { useCookieToken } from '/hooks'
 import { connect } from 'react-redux'
 import { withRouter } from 'next/router'
 import { useRouter } from 'next/router'
 // @ts-ignore
 import { base_url } from '/plugins/settings'
 import styled from 'styled-components'
+import Cookie from 'js-cookie'
 import {
   saveToken,
   getUser,
@@ -30,7 +33,7 @@ const Button = styled.button`
 `
 const saveAndGetUser = (props) => {
   if (props['router']['query']['token'] && !props.user) {
-    const { token: accessToken, expiresIn } = props['router']['query']
+    const { token: accessToken, expiresIn } = props.router.query
     props.dispatch(saveToken({ accessToken, expiresIn }))
     props.dispatch(getUser())
   }
@@ -38,11 +41,10 @@ const saveAndGetUser = (props) => {
 
 const Page = (props) => {
   const router = useRouter()
-
-  saveAndGetUser(props)
+  useCookieToken(props)
   useEffect(() => {
-    console.log(props)
-  })
+    saveAndGetUser(props)
+  }, [props.accessToken, props.user])
 
   const loggingOut = async () => {
     await router.push('/')
