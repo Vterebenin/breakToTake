@@ -1,18 +1,14 @@
 import { Fragment, useEffect } from 'react'
-// @ts-ignore
-import { useCookieToken } from '/hooks'
+import { useCookieToken } from 'hooks'
 import { connect } from 'react-redux'
 import { withRouter } from 'next/router'
 import { useRouter } from 'next/router'
-// @ts-ignore
-import { base_url } from '/plugins/settings'
+import { base_url } from 'plugins/settings'
 import styled from 'styled-components'
-import Cookie from 'js-cookie'
 import {
   saveToken,
   getUser,
   logout
-// @ts-ignore
 } from 'store/actions/authActions'
 
 

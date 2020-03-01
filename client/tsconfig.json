@@ -6,6 +6,20 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["./components/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/styles/*": ["./styles/*"],
+      "@/static/*": ["./static/*"],
+      "@/hooks/*": ["./hooks/*"],
+      "@/plugins/*": ["./plugins/*"],
+      "@/higher-order-components/*": ["./higher-order-components/*"],
+      "@/pages/*": ["./pages/*"],
+      "@/server/*": ["./server/*"],
+      "@/typings/*": ["./typings/*"],
+      "@/store/*": ["./store/*"]
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,

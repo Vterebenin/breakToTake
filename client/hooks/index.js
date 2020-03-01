@@ -7,7 +7,6 @@ import {
 
 export const useCookieToken = (props) => {
   const accessToken = Cookie.get('access_token')
-  console.log(accessToken)
   if (accessToken && !props.user) {
     const expiresIn = new Date()
     expiresIn.setDate(expiresIn.getDate() + 2)
