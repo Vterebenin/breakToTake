@@ -17,15 +17,21 @@ from break_to_take.core.serializers import AccessTokenSerializer
 from break_to_take.core.models import User
 from rest_framework.response import Response
 
+from core.serializers import UserSerializer
+
 
 class UserView(ViewSet):
     @staticmethod
     @permission_classes([AllowAny])
-    @action(methods=['get'], detail=False)
-    def token(request: Request) -> Response:
-        user = User.objects.get(email=request.user.email)
-        token = AccessToken.objects.filter(user=user)
-        return Response(AccessTokenSerializer(token).data)
+    @action(methods=['post'], detail=False)
+    def get_user_by_token(request: Request) -> Response:
+        access_token = request.data.get('token', None)
+        if access_token:
+            token = AccessToken.objects.get(token=access_token)
+            user_id = token.user_id
+            user = User.objects.get(id=user_id)
+            return Response(UserSerializer(user).data)
+        return Response()
 
     @staticmethod
     @permission_classes([AllowAny])
@@ -45,9 +51,16 @@ class UserView(ViewSet):
         session = SessionStore()
         session['user_email'] = user.email
         session['user_token'] = token
-        print(session['user_email'])
         base_url = 'http://localhost:3000/'
-        query_string = urlencode({'token': token})  # 2 token=jwt-token
+        query_string = urlencode({'token': token, 'expiresIn': expires})  # 2 token=jwt-token
         url = '{}?{}'.format(base_url, query_string)  # 3 /<redirect-route>/?token=jwt-token
         return redirect(url)
 
+    @staticmethod
+    @action(methods=['get'], detail=False)
+    def logout(request: Request) -> Response:
+        try:
+            AccessToken.objects.get(user=request.user).delete()
+        except AccessToken.DoesNotExist:
+            pass
+        return Response({'status': 200})

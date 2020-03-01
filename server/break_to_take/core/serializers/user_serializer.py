@@ -8,15 +8,12 @@ class UserSerializer(serializers.ModelSerializer):
     """
     Сериализатор пользователя
     """
-    permissions = serializers.SerializerMethodField('get_permissions')
-
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'sir_name', 'avatar', 'profile', 'groups',
-                  'permissions')
+        fields = ('id', 'username', 'email')
 
 
 class AccessTokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = AccessToken
-        fields = ('scope', 'created', 'expires')
+        fields = '__all__'
