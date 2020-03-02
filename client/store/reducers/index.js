@@ -4,5 +4,5 @@ import { reducer } from './authReducer'
 const authReducer = reducer
 
 export default combineReducers({
-  authReducer
+	authReducer
 })

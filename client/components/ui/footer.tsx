@@ -1,13 +1,12 @@
 import React from 'react'
-import { Layout } from 'antd';
-const { Footer } = Layout;
+import { Layout } from 'antd'
+const { Footer } = Layout
 
-
-const MainFooter = (props) => {
-  return <Footer style={{ textAlign: 'center' }}>{props.children}</Footer>
+interface Props {
+	children?: string | object;
 }
-
-
-
+const MainFooter: React.FunctionComponent<Props> = (props: Props) => {
+	return <Footer style={{ textAlign: 'center' }}>{props.children}</Footer>
+}
 
 export default MainFooter
