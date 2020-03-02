@@ -19,9 +19,25 @@ module.exports = () => {
       CLIENT_ID: process.env.CLIENT_ID,
       CLIENT_SECRET: process.env.CLIENT_SECRET
     },
-    webpack: config => {
-      config.resolve.alias[''] = path.resolve(__dirname);
-      return config;
+    webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+      if (dev) {
+        const eslintRule = {
+          test: /\.(js|tsx)?$/,
+          enforce: 'pre',
+          exclude: /node_modules/,
+          loader: 'eslint-loader',
+          options: {
+            // Emit errors as warnings for dev to not break webpack build.
+            // Eslint errors are shown in console for dev, yay :-)
+            emitWarning: dev,
+          },
+        };
+        // const rules = [].concat(eslintRule, config.module.rules);
+        config.module.rules.push(eslintRule)
+      }
+
+      config.resolve.alias[''] = path.resolve(__dirname)
+      return config
     }
   }
 };

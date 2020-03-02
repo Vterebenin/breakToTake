@@ -1,4 +1,4 @@
-import { useCookieToken } from 'hooks'
+import { useCookieToken } from "hooks"
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { base_url } from 'plugins/settings'
