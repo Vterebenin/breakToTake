@@ -19,5 +19,6 @@ export const getUser = () => async dispatch => {
 
 
 export const logout = () => async dispatch => {
+  console.log('123qwe')
   return dispatch({ type: actions.LOGOUT })
 }

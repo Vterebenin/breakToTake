@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
 import { useCookieToken } from 'hooks'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
+import { base_url } from 'plugins/settings'
 import { withRouter } from 'next/router'
 import { useRouter } from 'next/router'
 import {
@@ -8,27 +9,27 @@ import {
   getUser,
   logout
 } from 'store/actions/authActions'
-import { Layout, Breadcrumb } from 'antd';
+import { Button, Layout } from 'antd';
 import Sidebar from 'components/ui/sidebar'
+import MainFooter from 'components/ui/footer'
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 const saveAndGetUser = (props) => {
-  if (props['router']['query']['token'] && !props.user) {
-    const { token: accessToken, expiresIn } = props.router.query
-    props.dispatch(saveToken({ accessToken, expiresIn }))
-    props.dispatch(getUser())
-  }
+  const { token: accessToken, expiresIn } = props.router.query
+  props.dispatch(saveToken({ accessToken, expiresIn }))
+  props.dispatch(getUser())
 }
 
 const Page = (props) => {
   const router = useRouter()
-  useCookieToken(props)
-  const [collapsed, setCollapsed] = useState(false);
+  const loggedIn = useCookieToken(props)
 
-  useEffect(() => {
+  const date = new Date().getFullYear()
+
+  if (props['router']['query']['token'] && !props.user) {
     saveAndGetUser(props)
-  }, [props.accessToken, props.user])
+  }
 
   const loggingOut = async () => {
     await router.push('/')
@@ -39,17 +40,33 @@ const Page = (props) => {
     <Layout style={{ minHeight: '100vh' }}>
       <Sidebar />
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ color: 'white' }} >Break to take</Header>
+        <Header className="site-layout-background" style={{ color: 'white' }} >
+          <NavItem>
+            Break To Take
+
+          </NavItem>
+          <NavItem>
+            {loggedIn &&
+              (props.user.email)
+            }
+          </NavItem>
+          <NavItem>
+            {!loggedIn &&
+              (<Button href={`${base_url}/login/google-oauth2`}>log in with google</Button>)
+            }
+          </NavItem>
+          <NavItem>
+            {loggedIn &&
+              (<Button onClick={loggingOut}>logout</Button>)
+            }
+          </NavItem>
+        </Header>
         <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
             Bill is a cat.
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        <MainFooter>Break to take © {date} Created by Valentine Terebenin</MainFooter>
       </Layout>
     </Layout>
   )
@@ -69,4 +86,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
   return { dispatch }
 }
+
+const NavItem = styled.span`
+  margin: 0 10px
+`;
+
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Page))

@@ -1,7 +1,7 @@
 import actions from '../actions'
 import Cookie from 'js-cookie'
 
-export default (state = {
+export const reducer = (state = {
   user: null,
   tokenType: Cookie.get('token_type'),
   accessToken: Cookie.get('access_token'),

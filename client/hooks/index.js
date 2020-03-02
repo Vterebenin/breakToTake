@@ -2,7 +2,6 @@ import Cookie from 'js-cookie'
 import {
   saveToken,
   getUser
-// @ts-ignore
 } from 'store/actions/authActions'
 
 export const useCookieToken = (props) => {
@@ -13,4 +12,6 @@ export const useCookieToken = (props) => {
     props.dispatch(saveToken({ accessToken, expiresIn }))
     props.dispatch(getUser())
   }
+  return !!props.user
+
 }
