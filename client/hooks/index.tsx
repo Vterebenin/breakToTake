@@ -1,6 +1,4 @@
 import Cookie from 'js-cookie'
-import { Dispatch, AnyAction } from 'redux'
-import { ThunkAction } from 'redux-thunk'
 import {
 	saveToken,
 	getUser
@@ -12,7 +10,7 @@ interface Props {
 	};
 	accessToken?: string;
 	userAgent?: string;
-	dispatch?: Dispatch;
+	dispatch?: any;
 }
 
 export const useCookieToken = (props: Props) => {
@@ -20,8 +18,8 @@ export const useCookieToken = (props: Props) => {
 	if (accessToken && !props.user) {
 		const expiresIn = new Date()
 		expiresIn.setDate(expiresIn.getDate() + 2)
-		props.dispatch!(saveToken<AnyAction[]>({ accessToken, expiresIn }))
-		props.dispatch!(getUser<AnyAction[]>())
+		props.dispatch!(saveToken({accessToken, expiresIn}))
+		props.dispatch!(getUser())
 	}
 	return !!props.user
 

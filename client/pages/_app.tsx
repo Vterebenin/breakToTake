@@ -1,12 +1,14 @@
-import React from 'react'
-import {Provider} from 'react-redux'
-import App from 'next/app'
-import withRedux from 'next-redux-wrapper'
-import { makeStore } from 'store'
 import 'antd/dist/antd.css'
+import React from 'react'
+import { Provider } from 'react-redux'
+import App, { AppContext } from 'next/app'
+import withRedux, { ReduxWrapperAppProps } from 'next-redux-wrapper'
+import { RootState } from 'store/reducers/authReducer'
+import { makeStore } from 'store/index'
 
-class MyApp extends App {
-	static async getInitialProps({Component, ctx}) {
+
+class MyApp extends App<ReduxWrapperAppProps<RootState>> {
+	static async getInitialProps ({ Component, ctx}: AppContext) {
 		// We can dispatch from here too
 		ctx.store.dispatch({type: 'FOO', payload: 'foo'})
 

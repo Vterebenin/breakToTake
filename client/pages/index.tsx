@@ -55,23 +55,22 @@ const Page: NextPage<Props> = (props) => {
 				<Header className="site-layout-background" style={{ color: 'white' }} >
 					<NavItem>
             Break To Take
-
 					</NavItem>
-					<NavItem>
-						{loggedIn &&
-              (props.user!.email)
-						}
-					</NavItem>
-					<NavItem>
-						{!loggedIn &&
-              (<Button href={`${base_url}/login/google-oauth2`}>log in with google</Button>)
-						}
-					</NavItem>
-					<NavItem>
-						{loggedIn &&
-              (<Button onClick={() => loggingOut}>logout</Button>)
-						}
-					</NavItem>
+					{loggedIn &&
+						<>
+							<NavItem>
+								(props.user!.email)
+							</NavItem>
+							<NavItem>
+								(<Button onClick={() => loggingOut}>logout</Button>)
+							</NavItem>
+						</>
+					}
+					{!loggedIn &&
+						<NavItem>
+							(<Button href={`${base_url}/login/google-oauth2`}>log in with google</Button>)
+						</NavItem>
+					}
 				</Header>
 				<Content style={{ margin: '0 16px' }}>
 					<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
