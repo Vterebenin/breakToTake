@@ -50,7 +50,6 @@ const Page: NextPage<Props> = (props) => {
 
 	return (
 		<Layout style={{ minHeight: '100vh' }}>
-			<Sidebar />
 			<Layout className="site-layout">
 				<Header className="site-layout-background" style={{ color: 'white' }} >
 					<NavItem>
@@ -59,16 +58,16 @@ const Page: NextPage<Props> = (props) => {
 					{loggedIn &&
 						<>
 							<NavItem>
-								(props.user!.email)
+								({props.user!.email})
 							</NavItem>
 							<NavItem>
-								(<Button onClick={() => loggingOut}>logout</Button>)
+								<Button onClick={loggingOut}>logout</Button>
 							</NavItem>
 						</>
 					}
 					{!loggedIn &&
 						<NavItem>
-							(<Button href={`${base_url}/login/google-oauth2`}>log in with google</Button>)
+							<Button href={`${base_url}/login/google-oauth2`}>log in with google</Button>
 						</NavItem>
 					}
 				</Header>
@@ -79,6 +78,7 @@ const Page: NextPage<Props> = (props) => {
 				</Content>
 				<MainFooter>Break to take © {date} Created by Valentine Terebenin</MainFooter>
 			</Layout>
+			<Sidebar />
 		</Layout>
 	)
 }

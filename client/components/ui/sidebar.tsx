@@ -12,7 +12,7 @@ const { Sider } = Layout
 const { SubMenu } = Menu
 
 const Sidebar: React.FunctionComponent = () => {
-	const [collapsed, setCollapsed] = useState(false)
+	const [collapsed, setCollapsed] = useState(true)
 
 	return (
 		<Sider collapsible collapsed={collapsed} onCollapse={(): void => setCollapsed(!collapsed)}>
