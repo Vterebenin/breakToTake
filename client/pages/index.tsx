@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { baseUrl } from 'plugins/settings'
-import { withRouter } from 'next/router'
 import { useRouter, NextRouter } from 'next/router'
 import {
 	saveToken,
@@ -76,5 +75,5 @@ const NavItem = styled.span`
   margin: 0 10px
 `
 
-export default withRouter(Page as React.FunctionComponent)
+export default Page as React.FunctionComponent
 
