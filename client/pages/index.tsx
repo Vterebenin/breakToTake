@@ -1,9 +1,8 @@
-import { useCookieToken } from 'hooks'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
-import { base_url } from 'plugins/settings'
-import { withRouter, SingletonRouter } from 'next/router'
-import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+import { baseUrl } from 'plugins/settings'
+import { withRouter } from 'next/router'
+import { useRouter, NextRouter } from 'next/router'
 import {
 	saveToken,
 	getUser,
@@ -12,40 +11,30 @@ import {
 import { Button, Layout } from 'antd'
 import Sidebar from 'components/ui/sidebar'
 import MainFooter from 'components/ui/footer'
-import {NextPage} from 'next'
+import { NextPage } from 'next'
+import { useCookieToken } from 'hooks/index'
 
 const { Header, Content } = Layout
 
-interface Props {
-  user?: {
-    email: string;
-  };
-  accessToken?: string;
-  userAgent?: string;
-  router?: SingletonRouter;
-  dispatch?: any;
+const saveAndGetUser = (dispatch: Function, router: NextRouter): void => {
+	const { token: accessToken, expiresIn } = router.query
+	dispatch(saveToken({ accessToken, expiresIn }))
+	dispatch(getUser())
 }
 
-const saveAndGetUser = (props: Props) => {
-	const { token: accessToken, expiresIn } = props.router!.query!
-  props.dispatch!(saveToken({ accessToken, expiresIn }))
-  props.dispatch!(getUser())
-}
-
-const Page: NextPage<Props> = (props) => {
+const Page: NextPage = () => {
 	const router = useRouter()
-	// const loggedIn = true
-	const loggedIn = useCookieToken(props)
-
+	const dispatch = useDispatch()
 	const date = new Date().getFullYear()
+	const [user, loggedIn] = useCookieToken()
 
-	if (props.router!.query!.token && !props.user) {
-		saveAndGetUser(props)
+	if (router.query.token && !user) {
+		saveAndGetUser(dispatch, router)
 	}
 
-	const loggingOut = async () => {
+	const loggingOut = async (): Promise<void> => {
 		await router.push('/')
-		props.dispatch(logout())
+		dispatch(logout())
 	}
 
 	return (
@@ -55,10 +44,10 @@ const Page: NextPage<Props> = (props) => {
 					<NavItem>
             Break To Take
 					</NavItem>
-					{loggedIn &&
+					{user &&
 						<>
 							<NavItem>
-								({props.user!.email})
+								({user.email})
 							</NavItem>
 							<NavItem>
 								<Button onClick={loggingOut}>logout</Button>
@@ -67,7 +56,7 @@ const Page: NextPage<Props> = (props) => {
 					}
 					{!loggedIn &&
 						<NavItem>
-							<Button href={`${base_url}/login/google-oauth2`}>log in with google</Button>
+							<Button href={`${baseUrl}/login/google-oauth2`}>log in with google</Button>
 						</NavItem>
 					}
 				</Header>
@@ -83,24 +72,9 @@ const Page: NextPage<Props> = (props) => {
 	)
 }
 
-
-Page.getInitialProps = async ({ req }) => {
-	const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
-	return { userAgent }
-}
-
-
-const mapStateToProps = (state: any) => {
-	const { accessToken, user } = state.authReducer
-	return { accessToken, user }
-}
-const mapDispatchToProps = (dispatch: any) => {
-	return { dispatch }
-}
-
 const NavItem = styled.span`
   margin: 0 10px
 `
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Page) as any)
+export default withRouter(Page as React.FunctionComponent)
 
