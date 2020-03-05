@@ -1,34 +1,31 @@
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { baseUrl } from 'plugins/settings'
-import { useRouter, NextRouter } from 'next/router'
+import { useRouter } from 'next/router'
+import { Button, Layout } from 'antd'
+import Sidebar from 'components/ui/sidebar'
+import MainFooter from 'components/ui/footer'
+import { NextPage } from 'next'
 import {
 	saveToken,
 	getUser,
 	logout
 } from 'store/actions/authActions'
-import { Button, Layout } from 'antd'
-import Sidebar from 'components/ui/sidebar'
-import MainFooter from 'components/ui/footer'
-import { NextPage } from 'next'
 import { useCookieToken } from 'hooks/index'
 
 const { Header, Content } = Layout
 
-const saveAndGetUser = (dispatch: Function, router: NextRouter): void => {
-	const { token: accessToken, expiresIn } = router.query
-	dispatch(saveToken({ accessToken, expiresIn }))
-	dispatch(getUser())
-}
-
 const Page: NextPage = () => {
+	const date = new Date().getFullYear()
+
 	const router = useRouter()
 	const dispatch = useDispatch()
-	const date = new Date().getFullYear()
 	const [user, loggedIn] = useCookieToken()
 
 	if (router.query.token && !user) {
-		saveAndGetUser(dispatch, router)
+		const { token: accessToken, expiresIn } = router.query
+		dispatch(saveToken({ accessToken, expiresIn }))
+		dispatch(getUser())
 	}
 
 	const loggingOut = async (): Promise<void> => {
