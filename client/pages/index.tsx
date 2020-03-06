@@ -1,8 +1,9 @@
+import React from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { baseUrl } from 'plugins/settings'
 import { useRouter } from 'next/router'
-import { Button, Layout } from 'antd'
+import { PageHeader, Button, Layout } from 'antd'
 import Sidebar from 'components/ui/sidebar'
 import MainFooter from 'components/ui/footer'
 import { NextPage } from 'next'
@@ -13,7 +14,7 @@ import {
 } from 'store/actions/authActions'
 import { useCookieToken } from 'hooks/index'
 
-const { Header, Content } = Layout
+const { Content } = Layout
 
 const Page: NextPage = () => {
 	const date = new Date().getFullYear()
@@ -36,26 +37,18 @@ const Page: NextPage = () => {
 	return (
 		<Layout style={{ minHeight: '100vh' }}>
 			<Layout className="site-layout">
-				<Header className="site-layout-background" style={{ color: 'white' }} >
-					<NavItem>
-            Break To Take
-					</NavItem>
-					{user &&
-						<>
-							<NavItem>
-								({user.email})
-							</NavItem>
-							<NavItem>
-								<Button onClick={loggingOut}>logout</Button>
-							</NavItem>
-						</>
-					}
-					{!loggedIn &&
-						<NavItem>
-							<Button href={`${baseUrl}/login/google-oauth2`}>log in with google</Button>
-						</NavItem>
-					}
-				</Header>
+				<PageHeader
+					className="site-layout-background"
+					style={{ color: 'white' }}
+					ghost={false}
+					title={'Break to take'}
+					extra={[
+						<NavItem key={1}> Break To Take </NavItem>,
+						user && <NavItem key={2}> ({user.email}) </NavItem>,
+						user && <NavItem key={3}> <span onClick={loggingOut}>logout</span> </NavItem>,
+						!loggedIn && <NavItem key={4}><Button href={`${baseUrl}/login/google-oauth2`}>log in with google</Button></NavItem>
+					]}>
+				</PageHeader>
 				<Content style={{ margin: '0 16px' }}>
 					<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
             Bill is a cat.
@@ -69,7 +62,8 @@ const Page: NextPage = () => {
 }
 
 const NavItem = styled.span`
-  margin: 0 10px
+  margin: 0 10px;
+  color: red;
 `
 
 export default Page as React.FunctionComponent

@@ -9,6 +9,8 @@
     "lint": "eslint --ext .js,.tsx --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/icons": "^4.9.1",
     "@types/js-cookie": "^2.2.5",
     "@types/react-redux": "^7.1.7",
     "@types/styled-components": "^5.0.1",
