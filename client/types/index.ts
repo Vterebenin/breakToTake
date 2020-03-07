@@ -9,5 +9,6 @@ export interface IState extends DefaultRootState {
 	}
 }
 export interface User {
-		email?: string | undefined
+	email?: string | undefined;
+	username?: string
 }

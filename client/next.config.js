@@ -23,8 +23,6 @@ module.exports = () => {
 			if (dev) {
 				const eslintRule = {
 					test: /\.(js|tsx)?$/,
-					enforce: 'pre',
-					exclude: /node_modules/,
 					loader: 'eslint-loader',
 					options: {
 						// Emit errors as warnings for dev to not break webpack build.

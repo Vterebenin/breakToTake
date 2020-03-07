@@ -5,7 +5,13 @@
 4. Написать функционал для работы с таймером
 5. Сделать настройки пользователя (имя/фамилия)
 5. Добавить графики, пилить фичи
+7. посмотреть лефт хук от evil marthians
 
+https://antdtheme.com/aliyun
+
+https://itnext.io/react-push-notifications-with-hooks-d293d36f4836
+
+https://developers.google.com/web/fundamentals/push-notifications/display-a-notification
 
 ## Напоминалка при разработке фронтенда
 1. Написал код

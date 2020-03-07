@@ -3,9 +3,10 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { baseUrl } from 'plugins/settings'
 import { useRouter } from 'next/router'
-import { PageHeader, Button, Layout } from 'antd'
+import { PageHeader, Layout } from 'antd'
 import Sidebar from 'components/ui/sidebar'
 import MainFooter from 'components/ui/footer'
+import Button from 'components/ui/button'
 import { NextPage } from 'next'
 import {
 	saveToken,
@@ -13,6 +14,7 @@ import {
 	logout
 } from 'store/actions/authActions'
 import { useCookieToken } from 'hooks/index'
+import { sendNotification } from 'mixins'
 
 const { Content } = Layout
 
@@ -43,15 +45,14 @@ const Page: NextPage = () => {
 					ghost={false}
 					title={'Break to take'}
 					extra={[
-						<NavItem key={1}> Break To Take </NavItem>,
-						user && <NavItem key={2}> ({user.email}) </NavItem>,
-						user && <NavItem key={3}> <span onClick={loggingOut}>logout</span> </NavItem>,
-						!loggedIn && <NavItem key={4}><Button href={`${baseUrl}/login/google-oauth2`}>log in with google</Button></NavItem>
+						user && <NavItem key={1}> ({user.email}) </NavItem>,
+						user && <Button key={2} onClick={loggingOut}>logout </Button>,
+						!loggedIn && <Button key={3} href={`${baseUrl}/login/google-oauth2`}>log in with google</Button>
 					]}>
 				</PageHeader>
 				<Content style={{ margin: '0 16px' }}>
 					<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-            Bill is a cat.
+						<Button onClick={(): any => sendNotification()}>Send test notification</Button>
 					</div>
 				</Content>
 				<MainFooter>Break to take © {date} Created by Valentine Terebenin</MainFooter>
