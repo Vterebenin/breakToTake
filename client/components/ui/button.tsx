@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import {
-	ACCENT_BG_COLOR,
+	BG_COLOR,
 	ACCENT_HOVER,
-	SPECIAL_TEXT_COLOR_BOLD,
+	TEXT_COLOR_BOLD,
+	PRIMARY_COLOR
 } from 'global/variables'
 
 interface MainButtonProps {
@@ -24,13 +25,13 @@ const MainButton = styled.a`
   display: inline-flex;
   font-size: inherit;
   font-family: inherit;
-  color: ${SPECIAL_TEXT_COLOR_BOLD};
+  color: ${TEXT_COLOR_BOLD};
   border-radius: 30px;
   font-weight: bold;
   padding: 10px 20px;
   outline: none;
   border: none;
-  background-color: ${ACCENT_BG_COLOR};
+  background-color: ${BG_COLOR};
   overflow: hidden;
   transition: color 0.4s ease-in-out;
   &::before {
@@ -45,11 +46,11 @@ const MainButton = styled.a`
 		background-color: ${ACCENT_HOVER};
 		transform-origin: center;
 		transform: translate3d(50%, -50%, 0) scale3d(0, 0, 0);
-		transition: transform 0.45s ease-in-out;
+		transition: transform 0.4s ease-in-out;
   }
   &:hover {
   	cursor: pointer;
-  	color: ${ACCENT_BG_COLOR};
+  	color: ${PRIMARY_COLOR};
   }
   &:hover::before {
   	transform: translate3d(50%, -50%, 0) scale3d(30, 30, 30);

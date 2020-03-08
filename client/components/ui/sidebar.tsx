@@ -16,7 +16,6 @@ const Sidebar: React.FunctionComponent = () => {
 
 	return (
 		<Sider collapsible collapsed={collapsed} onCollapse={(): void => setCollapsed(!collapsed)}>
-			<div className="logo"/>
 			<Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
 				<Menu.Item key="1">
 					<PieChartOutlined/>

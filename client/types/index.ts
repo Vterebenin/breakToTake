@@ -12,3 +12,7 @@ export interface User {
 	email?: string | undefined;
 	username?: string
 }
+
+export interface Props {
+	children?: React.FunctionComponent
+}

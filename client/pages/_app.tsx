@@ -5,7 +5,8 @@ import App, { AppContext, AppInitialProps } from 'next/app'
 import withRedux, { ReduxWrapperAppProps } from 'next-redux-wrapper'
 import { RootState } from 'store/reducers/authReducer'
 import { makeStore } from 'store/index'
-
+import Wrapper from 'components/ui/Wrapper'
+import styled from 'styled-components'
 
 class MyApp extends App<ReduxWrapperAppProps<RootState>> {
 	static async getInitialProps ({ Component, ctx}: AppContext): Promise<AppInitialProps> {
@@ -21,7 +22,9 @@ class MyApp extends App<ReduxWrapperAppProps<RootState>> {
 		const {Component, pageProps, store} = this.props
 		return (
 			<Provider store={store}>
-				<Component {...pageProps} />
+				<Wrapper>
+					<Component {...pageProps} />
+				</Wrapper>
 			</Provider>
 		)
 	}
