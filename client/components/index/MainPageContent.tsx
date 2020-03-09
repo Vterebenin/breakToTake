@@ -6,12 +6,7 @@ import { sendNotification } from 'mixins'
 
 const MainPageContent: NextPage = () => {
 	return (
-		<>
-			<div>
-				Let your eyes
-			</div>
-			<Button inverse onClick={(): Promise<void> => sendNotification()}>Send test notification</Button>
-		</>
+		<Button onClick={(): any => sendNotification()}>Send test notification</Button>
 	)
 }
 
