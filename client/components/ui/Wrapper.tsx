@@ -34,7 +34,6 @@ const Wrapper = (props: Props): React.ReactElement => {
 		const { token: accessToken, expiresIn } = router.query
 		dispatch(saveToken({ accessToken, expiresIn }))
 		dispatch(getUser())
-		router.replace('/')
 	}
 
 	return (

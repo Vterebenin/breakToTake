@@ -38,7 +38,7 @@ const MainButton = styled.a`
 		display: inline-flex;
 		font-size: inherit;
 		font-family: inherit;
-		color: ${(props: MainButtonProps): string => props.inverse ? TEXT_COLOR_DARK_THEME : TEXT_COLOR};
+		color: ${({ inverse }): string => inverse ? TEXT_COLOR_DARK_THEME : TEXT_COLOR};
 		border-radius: 30px;
 		font-weight: bold;
 		padding: 10px 20px;

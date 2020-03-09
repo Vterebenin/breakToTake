@@ -35,11 +35,11 @@ const DDMenu = (dispatch: Function, router: NextRouter): React.ReactElement => {
 
 	return (
 		<SMenu>
-			<SMenuItem key="1" onClick={async (): Promise<boolean> => await router.replace("/user/dashboard")}>
+			<SMenuItem key="1" onClick={async (): Promise<boolean> => await router.replace('/user/dashboard')}>
 				<FundOutlined />
 				Dashboard
 			</SMenuItem>
-			<SMenuItem key="2" onClick={async (): Promise<boolean> => await router.replace("/user/settings")}>
+			<SMenuItem key="2" onClick={async (): Promise<boolean> => await router.replace('/user/settings')}>
 				<SettingOutlined />
 				Settings
 			</SMenuItem>
