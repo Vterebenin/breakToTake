@@ -2,6 +2,7 @@ import React from 'react'
 import { Menu, Dropdown } from 'antd'
 import { LogoutOutlined, SettingOutlined, CaretDownOutlined, FundOutlined } from '@ant-design/icons'
 import { Props } from 'types'
+import Link from 'next/link'
 import styled from 'styled-components'
 import {BG_DARK_THEME, TEXT_COLOR_DARK_THEME} from 'global/variables'
 import { logout } from 'store/actions/authActions'
@@ -39,9 +40,13 @@ const DDMenu = (dispatch: Function, router: NextRouter): React.ReactElement => {
 				<FundOutlined />
 				Dashboard
 			</SMenuItem>
-			<SMenuItem key="2" onClick={async (): Promise<boolean> => await router.replace('/user/settings')}>
-				<SettingOutlined />
-				Settings
+			<SMenuItem key="2">
+				<Link href={'/user/settings'}>
+					<span>
+						<SettingOutlined />
+						Settings
+					</span>
+				</Link>
 			</SMenuItem>
 			<Menu.Divider />
 			<SMenuItem onClick={(): Promise<void> => loggingOut()} key="3">
