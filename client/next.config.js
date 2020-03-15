@@ -20,19 +20,6 @@ module.exports = () => {
 			CLIENT_SECRET: process.env.CLIENT_SECRET
 		},
 		webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-			if (dev) {
-				const eslintRule = {
-					test: /\.(js|tsx)?$/,
-					loader: 'eslint-loader',
-					options: {
-						// Emit errors as warnings for dev to not break webpack build.
-						// Eslint errors are shown in console for dev, yay :-)
-						emitWarning: dev,
-					},
-				}
-				// const rules = [].concat(eslintRule, config.module.rules);
-				config.module.rules.push(eslintRule)
-			}
 
 			config.resolve.alias[''] = path.resolve(__dirname)
 			return config

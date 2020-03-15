@@ -1,9 +1,5 @@
 import datetime
 from urllib.parse import urlencode
-
-import jwt
-import requests
-from django.contrib.messages.storage.session import SessionStorage
 from django.contrib.sessions.backends.db import SessionStore
 from django.shortcuts import redirect
 from django.utils.timezone import make_aware
@@ -11,9 +7,7 @@ from oauth2_provider.models import AccessToken
 from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.decorators import action, permission_classes
-from rest_framework.utils import json
 from rest_framework.viewsets import ViewSet
-from break_to_take.core.serializers import AccessTokenSerializer
 from break_to_take.core.models import User
 from rest_framework.response import Response
 
